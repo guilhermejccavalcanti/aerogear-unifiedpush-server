@@ -17,9 +17,7 @@
 package org.jboss.aerogear.connectivity.service.impl;
 
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.jboss.aerogear.connectivity.jpa.dao.MobileVariantInstanceDao;
 import org.jboss.aerogear.connectivity.model.MobileVariantInstanceImpl;
 import org.jboss.aerogear.connectivity.service.MobileVariantInstanceService;
@@ -34,19 +32,14 @@ public class MobileVariantInstanceServiceImpl implements MobileVariantInstanceSe
     }
 
     @Override
-    public void removeMobileVariantInstances(
-            List<MobileVariantInstanceImpl> instances) {
-
-        // uh... :)
-
+    public void removeMobileVariantInstances(List<MobileVariantInstanceImpl> instances) {
         for (MobileVariantInstanceImpl mobileApplicationInstance : instances) {
             removeMobileVariantInstance(mobileApplicationInstance);
         }
     }
 
     @Override
-    public MobileVariantInstanceImpl updateMobileVariantInstance(
-            MobileVariantInstanceImpl mobileApplicationInstance) {
+    public MobileVariantInstanceImpl updateMobileVariantInstance(MobileVariantInstanceImpl mobileApplicationInstance) {
         return dao.update(mobileApplicationInstance);
     }
 
@@ -60,10 +53,14 @@ public class MobileVariantInstanceServiceImpl implements MobileVariantInstanceSe
         dao.delete(instance);
     }
 
+    @Override
+    public List<MobileVariantInstanceImpl> findMobileVariantInstancesForVariantByToken(String variantID, String deviceToken) {
+        return dao.findMobileVariantInstancesForVariantByToken(variantID, deviceToken);
+    }
+
     // =====================================================================
     // ======== Various finder services for the Sender REST API ============
     // =====================================================================
-
     @Override
     public List<String> findAllDeviceTokenForVariantID(String variantID) {
         return dao.findAllDeviceTokenForVariantIDByCategoryAndAliasAndDeviceType(variantID, null, null, null);
